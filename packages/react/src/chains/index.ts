@@ -1,1 +1,1 @@
-export * from "./xrpl";
+export * from "@xrpl-walletconnect/core"

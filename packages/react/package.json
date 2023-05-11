@@ -20,6 +20,7 @@
     "@walletconnect/types": "^2.7.3",
     "@walletconnect/utils": "^2.7.3",
     "@web3modal/standalone": "^2.4.1",
+    "@xrpl-walletconnect/core": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

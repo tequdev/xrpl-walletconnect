@@ -3,7 +3,6 @@ export interface ChainData {
   id: string;
   rpc: string[];
   slip44: number;
-  testnet: boolean;
 }
 export interface ChainsMap {
   [reference: string]: ChainData;

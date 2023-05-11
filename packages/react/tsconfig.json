@@ -17,6 +17,6 @@
     "strict": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": ["src", "../core/types.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
