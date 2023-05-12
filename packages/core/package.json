@@ -17,6 +17,9 @@
     "tsup": "^6.7.0",
     "typescript": "^5.0.2"
   },
+   "publishConfig": {
+    "access": "public"
+  },
   "tsup": {
     "entry": [
       "index.ts"
