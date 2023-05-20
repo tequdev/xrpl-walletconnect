@@ -21,6 +21,7 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
+      "@xrpl-walletconnect/core": ["../../core"],
       "@xrpl-walletconnect/react": ["../../react"]
     }
   },
