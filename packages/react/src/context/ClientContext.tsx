@@ -118,7 +118,7 @@ export function ClientContextProvider({
     const allNamespaceAccounts = Object.values(_session.namespaces)
       .map((namespace) => namespace.accounts)
       .flat();
-    const allNamespaceChains = Object.keys(_session.namespaces);
+    const allNamespaceChains = Object.keys(_session.namespaces).flatMap((ns)=>_session.namespaces[ns].chains || []);
 
     setSession(_session);
     setChains(allNamespaceChains);

@@ -13,7 +13,7 @@ export default function Home() {
 
   useEffect(() => {
     setChains([testnet.id]);
-  }, []);
+  }, [setChains]);
 
   const selectNetwork = (chainId: string) => {
     if (chains.includes(chainId)) {
@@ -38,11 +38,7 @@ export default function Home() {
 
   return (
     <main className="flex flex-col min-h-screen gap-2 p-24 justify-center items-center">
-      <Image
-        width='192'
-        src={walletConnectLogo}
-        alt="walletconnect"
-      />
+      <Image width="192" src={walletConnectLogo} alt="walletconnect" />
       <div className="m-10 text-center">
         <span className="text-4xl md:text-6xl">XRPL WalletConnect</span>
       </div>
@@ -65,7 +61,7 @@ export default function Home() {
       <div className="flex gap-2 m-2">
         <button
           className="btn btn-primary"
-          disabled={!chains.length}
+          disabled={!chains.length || !!accounts.length}
           onClick={() => connect()}
         >
           Connect
