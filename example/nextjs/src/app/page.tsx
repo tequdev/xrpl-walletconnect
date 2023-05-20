@@ -3,6 +3,7 @@ import { useWalletConnectClient } from "@xrpl-walletconnect/react";
 import { mainnet, testnet, devnet } from "@xrpl-walletconnect/core";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import walletConnectLogo from '../../public/assets/walletConnect.svg'
 
 export default function Home() {
   const { connect, disconnect, accounts, chains, setChains, signTransaction } =
@@ -38,8 +39,8 @@ export default function Home() {
   return (
     <main className="flex flex-col min-h-screen gap-2 p-24 justify-center items-center">
       <Image
-        className="w-48"
-        src="/assets/walletConnect.svg"
+        width='192'
+        src={walletConnectLogo}
         alt="walletconnect"
       />
       <div className="m-10 text-center">
