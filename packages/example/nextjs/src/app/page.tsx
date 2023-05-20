@@ -2,6 +2,7 @@
 import { useWalletConnectClient } from "@xrpl-walletconnect/react";
 import { mainnet, testnet, devnet } from "@xrpl-walletconnect/core";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 export default function Home() {
   const { connect, disconnect, accounts, chains, setChains, signTransaction } =
@@ -10,7 +11,7 @@ export default function Home() {
   const network = [mainnet, testnet, devnet];
 
   useEffect(() => {
-    setChains(["xrpl:1"]);
+    setChains([testnet.id]);
   }, []);
 
   const selectNetwork = (chainId: string) => {
@@ -23,7 +24,7 @@ export default function Home() {
 
   const testTransaction = async () => {
     setResult(undefined);
-    const result = await signTransaction("xrpl:1", {
+    const result = await signTransaction(chains[0], {
       TransactionType: "AccountSet",
       Account: accounts[0],
     });
@@ -36,7 +37,7 @@ export default function Home() {
 
   return (
     <main className="flex flex-col min-h-screen gap-2 p-24 justify-center items-center">
-      <img
+      <Image
         className="w-48"
         src="/assets/walletConnect.svg"
         alt="walletconnect"
@@ -80,7 +81,7 @@ export default function Home() {
         <div className="text-center">
           <span className="text-xl">Connected Accounts:</span>
           {accounts.map((account) => (
-            <div>{account}</div>
+            <div key={account}>{account}</div>
           ))}
           <button
             className="btn btn-accent mt-2"
