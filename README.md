@@ -7,11 +7,17 @@ https://docs.walletconnect.com/2.0/advanced/rpc-reference/xrpl-rpc
 ## usase
 
 ```jsx
+import { testnet } from "@xrpl-walletconnect/core";
 import { ClientContextProvider } from "@xrpl-walletconnect/react";
 
 const App = () => {
   return (
-    <ClientContextProvider>
+    <ClientContextProvider
+      projectId={projectId}
+      metadata={walletConnectMetadata}
+      relayUrl={relayUrl}
+      defaultChains={[testnet.id]}
+    >
       <Component />
     </ClientContextProvider>
   );
@@ -25,10 +31,6 @@ import { mainnet, testnet, devnet } from "@xrpl-walletconnect/core";
 const Component = ({ children }) => {
   const { accounts, connect, disconnect, chains, setChains, signTransaction } =
     useWalletConnectClient();
-
-  useEffect(() => {
-    setChains([mainnet.id]);
-  }, []);
 
   const testTransaction = () => {
     signTransaction(chains[0], {

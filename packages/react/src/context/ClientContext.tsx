@@ -16,6 +16,7 @@ import {
 import { getAppMetadata, getSdkError } from "@walletconnect/utils";
 import { DEFAULT_LOGGER, DEFAULT_XRPL_METHODS } from "../constants";
 import { getRequiredNamespaces } from "../helpers/namespaces";
+import { ChainData } from "@xrpl-walletconnect/core";
 
 /**
  * Types
@@ -67,6 +68,7 @@ export function ClientContextProvider({
   projectId,
   relayUrl,
   metadata,
+  defaultChains = [],
   children,
 }: {
   projectId: string;
@@ -78,6 +80,7 @@ export function ClientContextProvider({
     icons: string[];
     verifyUrl?: string;
   };
+  defaultChains?: ChainData['id'][];
   children: ReactNode | ReactNode[];
 }) {
   const [client, setClient] = useState<Client>();
@@ -88,7 +91,7 @@ export function ClientContextProvider({
   const prevRelayerValue = useRef<string>("");
 
   const [accounts, setAccounts] = useState<string[]>([]);
-  const [chains, setChains] = useState<string[]>([]);
+  const [chains, setChains] = useState<string[]>(defaultChains);
   const [relayerRegion, setRelayerRegion] = useState<string>(relayUrl);
 
   /**
@@ -107,9 +110,9 @@ export function ClientContextProvider({
   const reset = useCallback(() => {
     setSession(undefined);
     setAccounts([]);
-    setChains([]);
+    setChains(defaultChains);
     setRelayerRegion(relayUrl);
-  }, [relayUrl]);
+  }, [defaultChains, relayUrl]);
 
   const onSessionConnected = useCallback((_session: SessionTypes.Struct) => {
     const allNamespaceAccounts = Object.values(_session.namespaces)

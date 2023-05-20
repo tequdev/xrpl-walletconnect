@@ -3,6 +3,11 @@ import {
   ChainData,
 } from "./types";
 
+export type {
+  ChainsMap,
+  ChainData,
+}
+
 export const mainnet: ChainData = {
   name: "XRPL",
   id: "xrpl:0",
