@@ -1,4 +1,4 @@
-# XRPL WalletConnect library for React Native
+# XRPL WalletConnect library for React.js
 
 ## Document
 
