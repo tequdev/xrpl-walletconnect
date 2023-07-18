@@ -103,6 +103,10 @@ export function ClientContextProvider({
         projectId,
         themeMode: "light",
         walletConnectVersion: 2,
+        explorerRecommendedWalletIds: [
+          // Bifrost Wallet
+          "37a686ab6223cd42e2886ed6e5477fce100a4fb565dcd57ed4f81f7c12e93053",
+        ],
       }),
     [projectId]
   );
