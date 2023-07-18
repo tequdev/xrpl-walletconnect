@@ -50,3 +50,9 @@ const Component = ({ children }) => {
   );
 };
 ```
+
+## How to Publish packages
+
+1. `pnpm run version`
+
+2. `pnpm run publish`
