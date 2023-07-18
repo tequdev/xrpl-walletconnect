@@ -16,18 +16,21 @@ export default function Home() {
   }, [setChains]);
 
   const selectNetwork = (chainId: string) => {
-    if (chains.includes(chainId)) {
-      setChains(chains.filter((chain) => chain !== chainId));
-    } else {
-      setChains([...chains, chainId]);
-    }
+    setChains([chainId])
+    // if (chains.includes(chainId)) {
+    //   setChains(chains.filter((chain) => chain !== chainId));
+    // } else {
+    //   setChains([...chains, chainId]);
+    // }
   };
 
   const testTransaction = async () => {
     setResult(undefined);
     const result = await signTransaction(chains[0], {
-      TransactionType: "AccountSet",
-      Account: accounts[0],
+      TransactionType: "Payment",
+      Account: accounts[0].split(":")[2],
+      Destination: "rQQQrUdN1cLdNmxH4dHfKgmX5P4kf3ZrM",
+      Amount: '1000000'
     });
     setResult(result);
   };
@@ -89,11 +92,13 @@ export default function Home() {
         </div>
       )}
       {result && (
-        <div>
-          <pre>
-            <code>{JSON.stringify(result, null, 2)}</code>
-          </pre>
-        </div>
+      <div className="max-w-full">
+        <pre className="overflow-x-scroll ">
+          <code>
+            {JSON.stringify(result, null, 2)}
+          </code>
+        </pre>
+      </div>
       )}
     </main>
   );

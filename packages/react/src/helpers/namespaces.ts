@@ -16,10 +16,19 @@ const getNamespacesFromChains = (chains: string[]) => {
   return supportedNamespaces;
 };
 
-const getSupportedMethodsByNamespace = (namespace: string) => {
+const getSupportedRequiredMethodsByNamespace = (namespace: string) => {
   switch (namespace) {
     case "xrpl":
-      return Object.values(DEFAULT_XRPL_METHODS);
+      return [DEFAULT_XRPL_METHODS.XRPL_SIGN_TRANSACTION];
+    default:
+      throw new Error(`No default methods for namespace: ${namespace}`);
+  }
+};
+
+const getSupportedOptionalMethodsByNamespace = (namespace: string) => {
+  switch (namespace) {
+    case "xrpl":
+      return [DEFAULT_XRPL_METHODS.XRPL_SIGN_TRANSACTION, DEFAULT_XRPL_METHODS.XRPL_SIGN_TRANSACTION_FOR];
     default:
       throw new Error(`No default methods for namespace: ${namespace}`);
   }
@@ -38,13 +47,31 @@ export const getRequiredNamespaces = (
   chains: string[]
 ): ProposalTypes.RequiredNamespaces => {
   const selectedNamespaces = getNamespacesFromChains(chains);
-  console.log("selected namespaces:", selectedNamespaces);
+  console.log("selected required namespaces:", selectedNamespaces);
 
   return Object.fromEntries(
     selectedNamespaces.map((namespace) => [
       namespace,
       {
-        methods: getSupportedMethodsByNamespace(namespace),
+        methods: getSupportedRequiredMethodsByNamespace(namespace),
+        chains: chains.filter((chain) => chain.startsWith(namespace)),
+        events: getSupportedEventsByNamespace(namespace) as any[],
+      },
+    ])
+  );
+};
+
+export const getOptionalNamespaces = (
+  chains: string[]
+): ProposalTypes.OptionalNamespaces => {
+  const selectedNamespaces = getNamespacesFromChains(chains);
+  console.log("selected optional namespaces:", selectedNamespaces);
+
+  return Object.fromEntries(
+    selectedNamespaces.map((namespace) => [
+      namespace,
+      {
+        methods: getSupportedOptionalMethodsByNamespace(namespace),
         chains: chains.filter((chain) => chain.startsWith(namespace)),
         events: getSupportedEventsByNamespace(namespace) as any[],
       },

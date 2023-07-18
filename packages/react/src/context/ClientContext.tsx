@@ -15,7 +15,7 @@ import {
 
 import { getAppMetadata, getSdkError } from "@walletconnect/utils";
 import { DEFAULT_LOGGER, DEFAULT_XRPL_METHODS } from "../constants";
-import { getRequiredNamespaces } from "../helpers/namespaces";
+import { getOptionalNamespaces, getRequiredNamespaces } from "../helpers/namespaces";
 import { ChainData } from "@xrpl-walletconnect/core";
 
 /**
@@ -122,7 +122,7 @@ export function ClientContextProvider({
 
     setSession(_session);
     setChains(allNamespaceChains);
-    setAccounts(allNamespaceAccounts);
+    setAccounts([...new Set(allNamespaceAccounts)]);
   }, []);
 
   const connect = useCallback(
@@ -133,6 +133,7 @@ export function ClientContextProvider({
       console.log("connect, pairing topic is:", pairing?.topic);
       try {
         const requiredNamespaces = getRequiredNamespaces(chains);
+        const optionalNamespaces = getOptionalNamespaces(chains);
         console.log(
           "requiredNamespaces config for connect:",
           requiredNamespaces
@@ -141,6 +142,7 @@ export function ClientContextProvider({
         const { uri, approval } = await client.connect({
           pairingTopic: pairing?.topic,
           requiredNamespaces,
+          optionalNamespaces
         });
 
         // Open QRCode modal if a URI was returned (i.e. we're not connecting an existing pairing).
