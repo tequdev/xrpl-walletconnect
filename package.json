@@ -2,7 +2,9 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "build": "lerna run build"
+    "build": "lerna run build",
+    "version": "lerna version --no-private",
+    "publish": "lerna publish --no-private"
   },
   "workspaces": [
     "packages/*"
