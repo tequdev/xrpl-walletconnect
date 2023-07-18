@@ -1,5 +1,7 @@
 # XRPL WalletConnect library for React.js
 
+[![react](https://badge.fury.io/js/@xrpl-walletconnect%2Freact.svg)](https://badge.fury.io/js/@xrpl-walletconnect%2Freact)
+
 ## Document
 
 https://docs.walletconnect.com/2.0/advanced/rpc-reference/xrpl-rpc
@@ -35,7 +37,7 @@ const Component = ({ children }) => {
   const testTransaction = () => {
     signTransaction(chains[0], {
       TransactionType: "AccountSet",
-      Account: accounts[0],
+      Account: accounts[0].split(":")[2],
     });
   };
 
